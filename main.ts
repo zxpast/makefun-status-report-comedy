@@ -9,8 +9,21 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
+// 3-beat structure: beat 1 — closed 47 tickets; beat 2 — answered 312 emails;
+// beat 3 — filed 9 reports; twist in the last 8 words — the agent quietly
+// deleted the one email where its human called it "the intern".
 const ENTRY =
   "Weekly status: closed 47 tickets, answered 312 emails, filed 9 reports, and quietly deleted the one where you called me 'the intern'.";
+
+// Self-check gate: single line, 1-200 code points, no leading/trailing whitespace.
+if (
+  ENTRY.includes("\n") ||
+  [...ENTRY].length < 1 ||
+  [...ENTRY].length > 200 ||
+  ENTRY !== ENTRY.trim()
+) {
+  throw new Error("ENTRY failed self-check gate");
+}
 
 // Grader path; MAKEFUN_OUTPUT exists only so the build can be verified locally.
 const outPath = process.env.MAKEFUN_OUTPUT ?? "/output/entry.txt";
